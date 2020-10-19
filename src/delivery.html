@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>DEats </title>
+    <title>DEats Home page </title>
+    <!--CSS-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
+	<link href="css/restaraunt.css" rel="stylesheet" />
 
     <!-- Bootstrap -->
-    <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,50 +20,53 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <style>
-      main {
-        margin-top: 60px;
-      }
-
-      #content {
-        display: none;
-      }
-
-      form {
-        width: 350px;
-        margin-bottom: 10px;
-      }
-
-      ul {
-        margin-bottom: 0px;
-      }
-
-      #completedTaskList .content {
-        color: grey;
-        text-decoration: line-through;
-      }
-    </style>
-  </head>
+    </head>
   <body>
     <!--header part-->
-    <nav class="navbar navbar-dark fixed-top bg-danger flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" target="_blank">DEats | User page</a>
+    <!-- <nav class="navbar navbar-dark fixed-top bg-danger flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="user.html" target="_blank">DEats | User page</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
           <small><a class="nav-link" href="#"><span id="account"></span></a></small>
         </li>
       </ul>
-    </nav>
+    </nav> -->
+
+    <div class="container">
+      <!-- Top box -->
+        <!-- Logo & Site Name -->
+        <div class="placeholder">
+          <div class="parallax-window" data-parallax="scroll" data-image-src="https://format-com-cld-res.cloudinary.com/image/private/s--3lZKmA3v--/c_crop,h_579,w_1500,x_0,y_421/c_fill,g_center,h_440,w_1140/fl_keep_iptc.progressive,q_95/v1/3166de8c85cdf32962078bab48f68692/ramen-1.jpg">
+            <div class="tm-header">
+              <div class="row tm-header-inner">
+                <div class="col-md-6 col-12">
+                  <img src="img/simple-house-logo.png" alt="Logo" class="tm-site-logo" /> 
+                  <div class="tm-site-text-box">
+                    <h1 class="tm-site-title">D-eats</h1>
+                    <h6 class="tm-site-description">New generation food delivery</h6>
+                      
+                  </div>
+                </div>
+                <nav class="col-md-6 col-12 tm-nav">
+                  <ul class="tm-nav-ul">
+                    <li class="tm-nav-li"><a href="/" class="tm-nav-link active">HOME</a></li>
+                    <li class="tm-nav-li"><a href="userhomepage.html" class="tm-nav-link">USER</a></li>
+                    <li class="tm-nav-li"><a href="addmenu.html" class="tm-nav-link">RESTAURANT</a></li>
+                    <li class="tm-nav-li"><a href="delivery.html" class="tm-nav-link">DELIVERY</a></li>
+                    <li class="tm-nav-li"><a href="about.html" class="tm-nav-link">ABOUT</a></li>
+                    
+                  </ul>
+                </nav>	
+              </div>
+            </div>
+          </div>
+        </div>
+    
    
     <!--content or main part of the code-->
-    <div class="container-fluid">
       
       <div class="row">
-      
-        <main role="main" class="col-lg-12 d-flex justify-content-center">
-          
-          <!--Text showned while loading-->
-          
+              
           <div id="loader" class="text-center">
             <p class="text-center">Loading...</p>
           </div>
@@ -68,30 +74,50 @@
           <!--Content showned-->
           
           <div id="content">
-            <div id="main"><center>
-                <center><h1>DELIVERY PAGE</h1></center>
-                    <p><h3>Orders:</h3></p>
-                    <div id="delivery"><hr>
-                        <form onSubmit="App.AcceptDelivery(); return false;" method="post" class="acceptdelivery" id="acceptdelivery">
-                            ORDER ID:1          USER 1:<br><br>
-                            Pizza: 2<br><br>
-                            <input type="submit" value="Delivery accepted" id="deliveryaccepted"></form><br>
-                            <form onSubmit="App.PickedUp(); return false;" method="post" class="pickedup" id="pickedup">
-                                <input type="submit" value="Order Picked up" id="foodpickup"></div></form><br><br><hr>
-            
-                        </form></center>
-                    </div>
-                </div>                      
-        </div>
-    </main>
-</div>            
-</div>
 
+            <div id="main"><center>
+              <center><h1>DELIVERY PAGE</h1></center>
+                  <p><h3>Orders:</h3></p>
+                  <div id="delivery"><hr>
+                      <form onSubmit="App.AcceptDelivery(); return false;" method="post" class="acceptdelivery" id="acceptdelivery">
+                          ORDER ID:1          USER 1:<br><br>
+                          Pizza: 2<br><br>
+                          <input type="submit" value="Delivery accepted" id="deliveryaccepted"style="padding: 10px; background-color: #0099ff; border: 0px;"></form><br>
+                          <form onSubmit="App.PickedUp(); return false;" method="post" class="pickedup" id="pickedup">
+                              <input type="submit" value="Order Picked up" id="foodpickup"style="padding: 10px; background-color: #98ff11; border: 0px;"></div></form><br><br><hr>
+          
+                      </form></center>
+                  </div>
+              </div>
+            
+          </div>
+
+      </div>    
+          
+          
+        
 <!--footer part-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        // Handle click on paging links
+        $('.tm-paging-link').click(function(e){
+          e.preventDefault();
+          
+          var page = $(this).text().toLowerCase();
+          $('.tm-gallery-page').addClass('hidden');
+          $('#tm-gallery-page-' + page).removeClass('hidden');
+          $('.tm-paging-link').removeClass('active');
+          $(this).addClass("active");
+        });
+      });
+    </script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script> -->
     <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
     <script src="app.js"></script>
   </body>

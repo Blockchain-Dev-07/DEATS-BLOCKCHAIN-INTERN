@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags must come first in the head; any other head content must come after these tags -->
+    <title>DEats Home page </title>
+    <!--CSS-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
+	<link href="css/restaraunt.css" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <!-- <link href="vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    </head>
+  <body>
+    <!--header part-->
+    <!-- <nav class="navbar navbar-dark fixed-top bg-danger flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="user.html" target="_blank">DEats | User page</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap d-none d-sm-none d-sm-block">
+          <small><a class="nav-link" href="#"><span id="account"></span></a></small>
+        </li>
+      </ul>
+    </nav> -->
+
+    <div class="container">
+      <!-- Top box -->
+        <!-- Logo & Site Name -->
+        <div class="placeholder">
+          <div class="parallax-window" data-parallax="scroll" data-image-src="https://format-com-cld-res.cloudinary.com/image/private/s--3lZKmA3v--/c_crop,h_579,w_1500,x_0,y_421/c_fill,g_center,h_440,w_1140/fl_keep_iptc.progressive,q_95/v1/3166de8c85cdf32962078bab48f68692/ramen-1.jpg">
+            <div class="tm-header">
+              <div class="row tm-header-inner">
+                <div class="col-md-6 col-12">
+                  <img src="img/simple-house-logo.png" alt="Logo" class="tm-site-logo" /> 
+                  <div class="tm-site-text-box">
+                    <h1 class="tm-site-title">D-eats</h1>
+                    <h6 class="tm-site-description">New generation food delivery</h6>
+                      
+                  </div>
+                </div>
+                <nav class="col-md-6 col-12 tm-nav">
+                  <ul class="tm-nav-ul">
+                    <li class="tm-nav-li"><a href="/" class="tm-nav-link active">HOME</a></li>
+                    <li class="tm-nav-li"><a href="userhomepage.html" class="tm-nav-link">USER</a></li>
+                    <li class="tm-nav-li"><a href="addmenu.html" class="tm-nav-link">RESTAURANT</a></li>
+                    <li class="tm-nav-li"><a href="delivery.html" class="tm-nav-link">DELIVERY</a></li>
+                    <li class="tm-nav-li"><a href="about.html" class="tm-nav-link">ABOUT</a></li>
+                    
+                  </ul>
+                </nav>	
+              </div>
+            </div>
+          </div>
+        </div>
+    
+   
+    <!--content or main part of the code-->
+    <meta name="viewport" content="user-scalable=no,width=device-width"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap1.css">
+
+<script type="text/javascript" src="js/jquery1.js"></script>
+<style>
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    align-content: space-evenly;
+    background-color: #dddddd;
+    padding: 10px;
+    grid-template-columns: auto auto auto auto;
+  
+  }
+  
+  .grid-container > div {
+    text-align: center;
+  
+  }
+</style>
+</head>
+<body style="margin:30px">
+
+<div class="container">
+	
+
+<form>
+	<fieldset>
+        <center><h1>Restaurant 1 - Home page</h1><br>
+
+<button type="button" id="list" class="btn btn-success">Show Menu</button>
+
+</center>
+
+	</fieldset>
+</form>
+
+<hr>
+<h4>ITEMS:</h4><br>
+<div class="grid-container">
+	<div style="text-align: left;">ITEM</div>
+	<div>NAME</div>
+	<div>PRICE</div>  
+	<div>QUANTITY</div> 
+  </div>
+  <br>
+
+<table class="table table-bordered table-hover" id="itemlist">
+
+</table>
+
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+var db=openDatabase("itemDB","1.0","itemDB",65535);
+$(function(){
+
+loadData();
+
+// to remove
+
+
+//to insert
+
+
+//to fetch
+
+$("#list").click(function(){
+loadData();
+})
+
+function loadData(){
+		$("#itemlist").children().remove();
+	db.transaction(function(transaction){
+		var sql="SELECT * FROM items ORDER BY id DESC";
+		transaction.executeSql(sql,undefined,function(transaction,result){
+if(result.rows.length){
+
+for(var i=0;i<result.rows.length;i++){
+	var row=result.rows.item(i);
+	var item=row.item;
+	var id=row.id;
+	var price=row.price;
+	var quantity=row.quantity;
+	$("#itemlist").append('<tr><td>'+'-->'+'</td><td>'+item+'</td><td>'+price+'</td><td>'+quantity+'</td></tr>');
+}
+}else{
+	$("#itemlist").append('<tr><td colspan="4" align="center">No Item Found</td></tr>');
+}
+
+
+		},function(transaction,err){
+			alert('No table found. Click on "Create Table" to create table now');
+		})
+	})
+}
+
+})
+
+
+</script>
+      
+      <div class="row">
+              
+          <div id="loader" class="text-center">
+            <p class="text-center">Loading...</p>
+          </div>
+          
+          <!--Content showned-->
+          
+          <div id="content">
+
+            <form onSubmit="App.PlaceOrder(); return false;" method="post" class="amount" id="amount">
+              <fieldset>
+                  <legend>SELECT THE ITEMS:</legend>
+                  
+              
+              <div id="toppings">ITEMS: 
+              <br>
+                  <label><input type="checkbox" name="mushrooms" value="50" /> Burger</label><br>
+                  <label><input type="checkbox" name="onions" value="20" /> Pizza</label><br>
+                  <label><input type="checkbox" name="black_olives" value="40" />Sandwich</label><br>
+                  <label><input type="checkbox" name="sausage" value="30" /> Icecream</label><br>
+                  <label><input type="checkbox" name="pepperoni" value="10" /> Brownie</label><br>
+              </div>
+              
+              <p>
+                  <label>Total: FOD: <input type="text" name="total" class="num" size="6" value="0.00" readonly="readonly" /></label>
+              </p>
+             
+              <input type="submit" value="Place Order">
+               </fieldset>
+            </form>
+            
+          </div>
+      </div>    
+          
+          
+          <script>
+          // call onload or in script segment below form
+          function attachCheckboxHandlers() {
+              // get reference to element containing toppings checkboxes
+              var el = document.getElementById('toppings');
+          
+              // get reference to input elements in toppings container element
+              var tops = el.getElementsByTagName('input');
+              
+              // assign updateTotal function to onclick property of each checkbox
+              for (var i=0, len=tops.length; i<len; i++) {
+                  if ( tops[i].type === 'checkbox' ) {
+                      tops[i].onclick = updateTotal;
+                  }
+              }
+          }
+              
+          // called onclick of toppings checkboxes
+          function updateTotal(e) {
+              // 'this' is reference to checkbox clicked on
+              var form = this.form;
+              
+              // get current value in total text box, using parseFloat since it is a string
+              var val = parseFloat( form.elements['total'].value );
+              
+              // if check box is checked, add its value to val, otherwise subtract it
+              if ( this.checked ) {
+                  val += parseFloat(this.value);
+              } else {
+                  val -= parseFloat(this.value);
+              }
+              
+              // format val with correct number of decimal places
+              // and use it to update value of total text box
+              form.elements['total'].value = formatDecimal(val);
+          }
+              
+          // format val to n number of decimal places
+          // modified version of Danny Goodman's (JS Bible)
+          function formatDecimal(val, n) {
+              n = n || 2;
+              var str = "" + Math.round ( parseFloat(val) * Math.pow(10, n) );
+              while (str.length <= n) {
+                  str = "0" + str;
+              }
+              var pt = str.length - n;
+              return str.slice(0,pt) + "." + str.slice(pt);
+          }
+          
+          // in script segment below form
+          attachCheckboxHandlers();
+        </script>
+
+<!--footer part-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        // Handle click on paging links
+        $('.tm-paging-link').click(function(e){
+          e.preventDefault();
+          
+          var page = $(this).text().toLowerCase();
+          $('.tm-gallery-page').addClass('hidden');
+          $('#tm-gallery-page-' + page).removeClass('hidden');
+          $('.tm-paging-link').removeClass('active');
+          $(this).addClass("active");
+        });
+      });
+    </script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

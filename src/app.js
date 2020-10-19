@@ -122,7 +122,7 @@ App = {
     PlaceOrder: async () => {
         App.setLoading(true)
         //const bill = $('#PlaceOrder').val()
-        await App.RC.PlaceOrder(0xc241a5503f9554fD37bb90A7DFE8A26742282F76,40)
+        await App.RC.PlaceOrder('0x8c3cc2BdF41bc801787701E4f7D2f498d7a49598',40)
         window.location.reload()
         console.log("success PlaceOrder");
       },

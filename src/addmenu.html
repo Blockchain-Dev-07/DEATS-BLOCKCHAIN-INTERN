@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RESTAURANT</title>
+<meta name="viewport" content="user-scalable=no,width=device-width"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap1.css">
+
+<script type="text/javascript" src="js/jquery1.js"></script>
+<style>
+	h1{
+		color: green;
+	}
+.grid-container {
+  display: grid;
+  grid-gap: 10px;
+  align-content: space-evenly;
+  background-color: #dddddd;
+  padding: 10px;
+  grid-template-columns: auto auto auto auto;
+
+}
+
+.grid-container > div {
+  text-align: center;
+
+}
+
+.topimage img{
+	width:100%;
+
+}
+</style>
+
+</head>
+<body>
+<div class="topimage">
+	<img src="https://format-com-cld-res.cloudinary.com/image/private/s--3lZKmA3v--/c_crop,h_579,w_1500,x_0,y_421/c_fill,g_center,h_440,w_1140/fl_keep_iptc.progressive,q_95/v1/3166de8c85cdf32962078bab48f68692/ramen-1.jpg" alt="">
+</div>
+
+<div style="margin: 100px;"
+<center><h1>D-Eats Restaurant Add Items Page</h1></center><hr>
+<form>
+	<fieldset>
+		<legend>Item Name</legend>
+		<input type="text" class="form-control" name="" id="item">
+
+		<legend>Price</legend>
+		<input type="number" class="form-control" id="price" name="">
+
+		<legend>Quantity</legend>
+		<input type="number" class="form-control" id="quantity" name="">
+<br>
+<button type="button" id="insert" class="btn btn-success">Insert</button>
+
+<button type="button" id="create" class="btn btn-success">Create New Menu</button>
+
+<button type="button" id="remove" class="btn btn-danger">Delete Menu</button>
+
+
+	</fieldset>
+</form>
+
+<hr>
+<h4>ITEMS:</h4><br>
+<div class="grid-container">
+	<div style="text-align: left;">ITEM</div>
+	<div>NAME</div>
+	<div>PRICE</div>  
+	<div>QUANTITY</div> 
+  </div>
+  <br>
+
+<table class="table table-bordered table-hover" id="itemlist">
+
+</table>
+<br>
+<center>
+<a href="restaurant.html">
+	<button type="button" id="nextpage" class="btn btn-primary">VIEW ORDERS</button>
+</a> </center>
+
+</div>
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+var db=openDatabase("itemDB","1.0","itemDB",65535);
+$(function(){
+
+loadData();
+
+
+$("#create").click(function(){
+	createTable();
+})
+
+function createTable(){
+db.transaction(function(transaction){
+	var sql="CREATE TABLE items "+
+	"(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
+	"item VARCHAR(100) NOT NULL,"+"price INT(5),"+
+	"quantity INT(5) NOT NULL)";
+	transaction.executeSql(sql,undefined,function(){
+		alert("Table is created successfully");
+		loadData();
+	},function(){
+		alert("Table is already being created");
+	})
+})
+}
+// to remove
+
+$("#remove").click(function(){
+
+if(!confirm("Are you sure to delete this table?","")) return;;
+db.transaction(function(transaction){
+	var sql="DROP TABLE items";
+	transaction.executeSql(sql,undefined,function(){
+		alert("Table is deleted successfully")
+	},function(transaction,err){
+		alert(err.message);
+	})
+});
+});
+
+//to insert
+
+$("#insert").click(function(){
+var item=$("#item").val();
+var qty=$("#quantity").val();
+var pri=$("#price").val();
+db.transaction(function(transaction){
+var sql="INSERT INTO items(item,price,quantity) VALUES(?,?,?)";
+transaction.executeSql(sql,[item,pri,qty],function(){
+	alert("New item is added successfully");
+	loadData();
+},function(transaction,err){
+	alert(err.message);
+})
+})
+
+})
+
+
+//to fetch
+
+$("#list").click(function(){
+loadData();
+})
+
+function loadData(){
+		$("#itemlist").children().remove();
+	db.transaction(function(transaction){
+		var sql="SELECT * FROM items ORDER BY id DESC";
+		transaction.executeSql(sql,undefined,function(transaction,result){
+if(result.rows.length){
+
+for(var i=0;i<result.rows.length;i++){
+	var row=result.rows.item(i);
+	var item=row.item;
+	var id=row.id;
+	var price=row.price;
+	var quantity=row.quantity;
+	$("#itemlist").append('<tr><td>'+'-->'+'</td><td>'+item+'</td><td>'+price+'</td><td>'+quantity+'</td></tr>');
+}
+}else{
+	$("#itemlist").append('<tr><td colspan="4" align="center">No Item Found</td></tr>');
+}
+
+
+		},function(transaction,err){
+			alert('No table found. Click on "Create Table" to create table now');
+		})
+	})
+}
+
+})
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

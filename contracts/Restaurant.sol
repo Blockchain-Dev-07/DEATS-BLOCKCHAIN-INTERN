@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: DEats
 pragma solidity >=0.6.0;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./Foodie.sol";
+
 contract DEats {
     
     struct Restaurant {
@@ -75,8 +76,8 @@ contract DEats {
         orders[orderid].Customer = msg.sender;
         orders[orderid].Restaurant = _restaurantaddress;
         orders[orderid].Price = _amount;
-        //Foodie.transferFrom(msg.sender,address(this), (orders[orderid].Price + deliveryFee));
-        //emit orderPlaced(orderid, orders[orderid].Customer,  orders[orderid].Restaurant);
+  //     Foodie.transferFrom(msg.sender,address(this), (orders[orderid].Price + deliveryFee));
+        emit orderPlaced(orderid, orders[orderid].Customer,  orders[orderid].Restaurant);
     }
     
     
@@ -93,7 +94,7 @@ contract DEats {
         address resaddress = orders[_orderId].Restaurant;
         Restaurant memory res = restaurants[resaddress];
         // res.fund = res.fund - calculateCommission((orders[_orderId].Price));
-        // emit orderAccepted(_orderId, orders[_orderId].Customer,  orders[_orderId].Restaurant);
+         emit orderAccepted(_orderId, orders[_orderId].Customer,  orders[_orderId].Restaurant);
     }
     
     
@@ -103,7 +104,7 @@ contract DEats {
         address dgAddr = orders[_orderId].DeliveryPerson;
         DeliveryGuy memory dg = deliveryGuys[dgAddr];
         // dg.fund = dg.fund - calculateCommission((orders[_orderId].Price));
-        // emit deliveryAccepted(_orderId, orders[_orderId].DeliveryPerson);
+         emit deliveryAccepted(_orderId, orders[_orderId].DeliveryPerson);
     }
     
     
@@ -121,7 +122,7 @@ contract DEats {
         // Foodie.transfer(resaddress, resamount);
         Restaurant memory res = restaurants[resaddress];
         // res.fund = res.fund - calculateCommission((orders[_orderId].Price));
-        // emit orderOut(_orderId, orders[_orderId].Customer,  orders[_orderId].Restaurant,  orders[_orderId].DeliveryPerson);
+         emit orderOut(_orderId, orders[_orderId].Customer,  orders[_orderId].Restaurant,  orders[_orderId].DeliveryPerson);
     }
     
 
@@ -133,7 +134,7 @@ contract DEats {
     //    Foodie.transfer(deladdress, 10);
         DeliveryGuy memory dg = deliveryGuys[deladdress];
         // dg.fund = dg.fund + calculateCommission((orders[_orderId].Price));
-        // emit orderReceived(_orderId, orders[_orderId].Customer);
+         emit orderReceived(_orderId, orders[_orderId].Customer);
     }
    
     
