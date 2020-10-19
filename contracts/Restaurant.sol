@@ -51,8 +51,8 @@ contract DEats {
         
         Restaurant memory res = Restaurant(_name,_fund);
         require(res.fund >= 100,"Insufficient funds");
-        // Foodie.transferFrom(msg.sender, address(this), res.fund);
-        // restaurants[msg.sender] = res;
+        Foodie.transferFrom(msg.sender, address(this), res.fund);
+        restaurants[msg.sender] = res;
     }
     
     function addUser(string memory _name) public {
@@ -65,8 +65,8 @@ contract DEats {
         
         DeliveryGuy memory dg = DeliveryGuy(_name,_fund);
         require(dg.fund >= 100,"Insufficient funds");
-        // Foodie.transferFrom(msg.sender, address(this), dg.fund);
-        // deliveryGuys[msg.sender] = dg;
+        Foodie.transferFrom(msg.sender, address(this), dg.fund);
+        deliveryGuys[msg.sender] = dg;
         
     }
     
@@ -76,7 +76,7 @@ contract DEats {
         orders[orderid].Customer = msg.sender;
         orders[orderid].Restaurant = _restaurantaddress;
         orders[orderid].Price = _amount;
-  //     Foodie.transferFrom(msg.sender,address(this), (orders[orderid].Price + deliveryFee));
+        Foodie.transferFrom(msg.sender,address(this), (orders[orderid].Price + deliveryFee));
         emit orderPlaced(orderid, orders[orderid].Customer,  orders[orderid].Restaurant);
     }
     
@@ -90,10 +90,10 @@ contract DEats {
     
     function AcceptOrder(uint _orderId) public {
         
-        //require(orders[_orderId].Restaurant == msg.sender);
+        require(orders[_orderId].Restaurant == msg.sender);
         address resaddress = orders[_orderId].Restaurant;
         Restaurant memory res = restaurants[resaddress];
-        // res.fund = res.fund - calculateCommission((orders[_orderId].Price));
+        res.fund = res.fund - calculateCommission((orders[_orderId].Price));
          emit orderAccepted(_orderId, orders[_orderId].Customer,  orders[_orderId].Restaurant);
     }
     
@@ -103,7 +103,7 @@ contract DEats {
         orders[_orderId].DeliveryPerson = msg.sender;    
         address dgAddr = orders[_orderId].DeliveryPerson;
         DeliveryGuy memory dg = deliveryGuys[dgAddr];
-        // dg.fund = dg.fund - calculateCommission((orders[_orderId].Price));
+        dg.fund = dg.fund - calculateCommission((orders[_orderId].Price));
          emit deliveryAccepted(_orderId, orders[_orderId].DeliveryPerson);
     }
     
@@ -111,7 +111,7 @@ contract DEats {
     function OutForDelivery(uint _orderId) public view{
 
         address resaddress = orders[_orderId].Restaurant;
-        //require(msg.sender == resaddress);
+        require(msg.sender == resaddress);
        
     }
     
@@ -119,9 +119,9 @@ contract DEats {
         uint resamount = orders[_orderId].Price;
         address resaddress = orders[_orderId].Restaurant;
         require(msg.sender ==  orders[_orderId].DeliveryPerson);
-        // Foodie.transfer(resaddress, resamount);
+        Foodie.transfer(resaddress, resamount);
         Restaurant memory res = restaurants[resaddress];
-        // res.fund = res.fund - calculateCommission((orders[_orderId].Price));
+        res.fund = res.fund - calculateCommission((orders[_orderId].Price));
          emit orderOut(_orderId, orders[_orderId].Customer,  orders[_orderId].Restaurant,  orders[_orderId].DeliveryPerson);
     }
     
@@ -131,9 +131,9 @@ contract DEats {
         
         address deladdress = orders[_orderId].DeliveryPerson;
         require(msg.sender == orders[_orderId].Customer);
-    //    Foodie.transfer(deladdress, 10);
+       Foodie.transfer(deladdress, 10);
         DeliveryGuy memory dg = deliveryGuys[deladdress];
-        // dg.fund = dg.fund + calculateCommission((orders[_orderId].Price));
+        dg.fund = dg.fund + calculateCommission((orders[_orderId].Price));
          emit orderReceived(_orderId, orders[_orderId].Customer);
     }
    
